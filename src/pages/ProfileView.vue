@@ -39,6 +39,7 @@
         <div class="section-header">
           <h5 class="section-title">Property Role Relationships</h5>
           <p class="section-description">
+            Manage your role relationships for different properties. You can only add roles for yourself.
             Role relationships can be marked as ended using the "End Role"
             button. Ended roles will be displayed in the history section at the
             bottom of the page.
@@ -106,6 +107,7 @@
             </div>
             <div class="role-actions">
               <q-btn
+                v-if="role.user_id === currentUser.id"
                 flat
                 round
                 dense
@@ -115,6 +117,7 @@
                 title="Edit Role"
               />
               <q-btn
+                v-if="role.user_id === currentUser.id"
                 flat
                 round
                 dense
@@ -251,13 +254,12 @@
 
         <q-card-section>
           <q-form @submit="saveRole" class="q-gutter-md">
-            <q-select
-              v-model="roleDialog.role.user_id"
-              :options="userOptions"
-              label="User *"
+            <q-input
+              :model-value="getUserName(roleDialog.role.user_id)"
+              label="User"
               outlined
-              required
-              @update:model-value="onUserChange"
+              readonly
+              :disable="true"
             />
             <q-select
               v-model="roleDialog.role.property_id"
@@ -494,7 +496,7 @@ export default defineComponent({
       this.roleDialog.open = true;
       this.roleDialog.isEditing = false;
       this.roleDialog.role = {
-        user_id: null,
+        user_id: this.currentUser.id, // Set to current user
         property_id: null,
         role: null,
         start_date: "",
@@ -503,6 +505,16 @@ export default defineComponent({
     },
 
     editRole(role) {
+      // Only allow editing roles for the current user
+      if (role.user_id !== this.currentUser.id) {
+        this.$q.notify({
+          type: "warning",
+          message: "You can only edit your own roles",
+          position: "top",
+        });
+        return;
+      }
+      
       this.roleDialog.open = true;
       this.roleDialog.isEditing = true;
       this.roleDialog.role = JSON.parse(JSON.stringify(role));
@@ -562,6 +574,16 @@ export default defineComponent({
     },
 
     endRole(role) {
+      // Only allow ending roles for the current user
+      if (role.user_id !== this.currentUser.id) {
+        this.$q.notify({
+          type: "warning",
+          message: "You can only end your own roles",
+          position: "top",
+        });
+        return;
+      }
+
       this.$q
         .dialog({
           title: "Confirm End Role",

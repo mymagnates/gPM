@@ -9,7 +9,7 @@
       </div>
 
       <!-- Quick Actions Panel -->
-      <div v-if="showQuickActions" class="quick-actions-panel">
+      <div class="quick-actions-panel">
         <div class="actions-grid">
           <div class="action-card" @click="openCreatePropertyModal">
             <div class="action-icon">
@@ -270,41 +270,91 @@
 
         <q-card-section>
           <q-form @submit="saveProperty" class="q-gutter-md">
-            <q-input
-              v-model="newProperty.nickname"
-              label="Property Name *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newProperty.address"
-              label="Address *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newProperty.property_type"
-              label="Property Type"
-              outlined
-            />
-            <q-input
-              v-model.number="newProperty.square_feet"
-              label="Square Feet"
-              type="number"
-              outlined
-            />
-            <q-input
-              v-model.number="newProperty.bedrooms"
-              label="Bedrooms"
-              type="number"
-              outlined
-            />
-            <q-input
-              v-model.number="newProperty.bathrooms"
-              label="Bathrooms"
-              type="number"
-              outlined
-            />
+            <div class="row q-gutter-md">
+              <div class="col-12">
+                <q-input
+                  v-model="newProperty.nickname"
+                  label="Property Name *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="newProperty.address"
+                  label="Address *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newProperty.property_type"
+                  :options="propertyTypeOptions"
+                  label="Property Type *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model.number="newProperty.square_feet"
+                  label="Square Feet"
+                  type="number"
+                  outlined
+                />
+              </div>
+              <div class="col-4">
+                <q-input
+                  v-model.number="newProperty.bedrooms"
+                  label="Bedrooms"
+                  type="number"
+                  outlined
+                />
+              </div>
+              <div class="col-4">
+                <q-input
+                  v-model.number="newProperty.bathrooms"
+                  label="Bathrooms"
+                  type="number"
+                  outlined
+                />
+              </div>
+              <div class="col-4">
+                <q-input
+                  v-model.number="newProperty.parking_spaces"
+                  label="Parking Spaces"
+                  type="number"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model.number="newProperty.purchase_price"
+                  label="Purchase Price"
+                  type="number"
+                  step="0.01"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newProperty.purchase_date"
+                  label="Purchase Date"
+                  type="date"
+                  outlined
+                />
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="newProperty.description"
+                  label="Description"
+                  type="textarea"
+                  outlined
+                  rows="3"
+                />
+              </div>
+            </div>
           </q-form>
         </q-card-section>
 
@@ -331,38 +381,93 @@
 
         <q-card-section>
           <q-form @submit="saveTask" class="q-gutter-md">
-            <q-select
-              v-model="newTask.property_id"
-              :options="propertyOptions"
-              label="Property *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newTask.observation"
-              label="Task Description *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newTask.report_by"
-              label="Reported By *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newTask.report_date"
-              label="Report Date *"
-              type="date"
-              outlined
-              required
-            />
-            <q-select
-              v-model="newTask.status"
-              :options="taskStatusOptions"
-              label="Status"
-              outlined
-            />
+            <div class="row q-gutter-md">
+              <div class="col-12">
+                <q-select
+                  v-model="newTask.property_id"
+                  :options="propertyOptions"
+                  label="Property *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="newTask.observation"
+                  label="Task Description *"
+                  type="textarea"
+                  outlined
+                  required
+                  rows="3"
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTask.report_by"
+                  label="Reported By *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTask.report_date"
+                  label="Report Date *"
+                  type="date"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newTask.priority"
+                  :options="taskPriorityOptions"
+                  label="Priority *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newTask.status"
+                  :options="taskStatusOptions"
+                  label="Status"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTask.assigned_to"
+                  label="Assigned To"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTask.due_date"
+                  label="Due Date"
+                  type="date"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model.number="newTask.estimated_cost"
+                  label="Estimated Cost"
+                  type="number"
+                  step="0.01"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newTask.category"
+                  :options="taskCategoryOptions"
+                  label="Category"
+                  outlined
+                />
+              </div>
+            </div>
           </q-form>
         </q-card-section>
 
@@ -389,47 +494,93 @@
 
         <q-card-section>
           <q-form @submit="saveTransaction" class="q-gutter-md">
-            <q-select
-              v-model="newTransaction.property_id"
-              :options="propertyOptions"
-              label="Property *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newTransaction.from"
-              label="From *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newTransaction.to"
-              label="To *"
-              outlined
-              required
-            />
-            <q-input
-              v-model.number="newTransaction.amount"
-              label="Amount *"
-              type="number"
-              step="0.01"
-              outlined
-              required
-            />
-            <q-select
-              v-model="newTransaction.type"
-              :options="transactionTypeOptions"
-              label="Transaction Type *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newTransaction.date"
-              label="Date *"
-              type="date"
-              outlined
-              required
-            />
+            <div class="row q-gutter-md">
+              <div class="col-12">
+                <q-select
+                  v-model="newTransaction.property_id"
+                  :options="propertyOptions"
+                  label="Property *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTransaction.from"
+                  label="From *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTransaction.to"
+                  label="To *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model.number="newTransaction.amount"
+                  label="Amount *"
+                  type="number"
+                  step="0.01"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newTransaction.type"
+                  :options="transactionTypeOptions"
+                  label="Transaction Type *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTransaction.date"
+                  label="Date *"
+                  type="date"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newTransaction.category"
+                  :options="transactionCategoryOptions"
+                  label="Category"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newTransaction.reference"
+                  label="Reference Number"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newTransaction.payment_method"
+                  :options="paymentMethodOptions"
+                  label="Payment Method"
+                  outlined
+                />
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="newTransaction.description"
+                  label="Description"
+                  type="textarea"
+                  outlined
+                  rows="2"
+                />
+              </div>
+            </div>
           </q-form>
         </q-card-section>
 
@@ -456,47 +607,109 @@
 
         <q-card-section>
           <q-form @submit="saveLease" class="q-gutter-md">
-            <q-select
-              v-model="newLease.property_id"
-              :options="propertyOptions"
-              label="Property *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newLease.landlord"
-              label="Landlord *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newLease.tenant_name"
-              label="Tenant Name *"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newLease.contract_start_date"
-              label="Start Date *"
-              type="date"
-              outlined
-              required
-            />
-            <q-input
-              v-model="newLease.contract_end_date"
-              label="End Date *"
-              type="date"
-              outlined
-              required
-            />
-            <q-input
-              v-model.number="newLease.monthly_price"
-              label="Monthly Price *"
-              type="number"
-              step="0.01"
-              outlined
-              required
-            />
+            <div class="row q-gutter-md">
+              <div class="col-12">
+                <q-select
+                  v-model="newLease.property_id"
+                  :options="propertyOptions"
+                  label="Property *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.landlord"
+                  label="Landlord *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.tenant_name"
+                  label="Tenant Name *"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.contract_start_date"
+                  label="Start Date *"
+                  type="date"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.contract_end_date"
+                  label="End Date *"
+                  type="date"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model.number="newLease.monthly_price"
+                  label="Monthly Rent *"
+                  type="number"
+                  step="0.01"
+                  outlined
+                  required
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model.number="newLease.security_deposit"
+                  label="Security Deposit"
+                  type="number"
+                  step="0.01"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.tenant_phone"
+                  label="Tenant Phone"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.tenant_email"
+                  label="Tenant Email"
+                  type="email"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-input
+                  v-model="newLease.lease_number"
+                  label="Lease Number"
+                  outlined
+                />
+              </div>
+              <div class="col-6">
+                <q-select
+                  v-model="newLease.payment_frequency"
+                  :options="paymentFrequencyOptions"
+                  label="Payment Frequency"
+                  outlined
+                />
+              </div>
+              <div class="col-12">
+                <q-input
+                  v-model="newLease.notes"
+                  label="Notes"
+                  type="textarea"
+                  outlined
+                  rows="3"
+                />
+              </div>
+            </div>
           </q-form>
         </q-card-section>
 
@@ -539,6 +752,10 @@ export default defineComponent({
         square_feet: null,
         bedrooms: null,
         bathrooms: null,
+        parking_spaces: null,
+        purchase_price: null,
+        purchase_date: "",
+        description: "",
       },
 
       newTask: {
@@ -547,6 +764,11 @@ export default defineComponent({
         report_by: "",
         report_date: "",
         status: "Open",
+        priority: "Medium",
+        assigned_to: "",
+        due_date: "",
+        estimated_cost: null,
+        category: "",
       },
 
       newTransaction: {
@@ -557,6 +779,10 @@ export default defineComponent({
         type: "income",
         date: "",
         currency: "USD",
+        category: "",
+        reference: "",
+        payment_method: "",
+        description: "",
       },
 
       newLease: {
@@ -566,6 +792,12 @@ export default defineComponent({
         contract_start_date: "",
         contract_end_date: "",
         monthly_price: null,
+        security_deposit: null,
+        tenant_phone: "",
+        tenant_email: "",
+        lease_number: "",
+        payment_frequency: "monthly",
+        notes: "",
       },
 
       // Sample data
@@ -672,6 +904,17 @@ export default defineComponent({
       ],
 
       // Options
+      propertyTypeOptions: [
+        { label: "Single Family Home", value: "single_family" },
+        { label: "Multi-Family", value: "multi_family" },
+        { label: "Apartment", value: "apartment" },
+        { label: "Condo", value: "condo" },
+        { label: "Townhouse", value: "townhouse" },
+        { label: "Commercial", value: "commercial" },
+        { label: "Land", value: "land" },
+        { label: "Other", value: "other" },
+      ],
+
       taskStatusOptions: [
         { label: "Open", value: "Open" },
         { label: "In Progress", value: "In Progress" },
@@ -679,9 +922,52 @@ export default defineComponent({
         { label: "Cancelled", value: "Cancelled" },
       ],
 
+      taskPriorityOptions: [
+        { label: "Low", value: "Low" },
+        { label: "Medium", value: "Medium" },
+        { label: "High", value: "High" },
+        { label: "Critical", value: "Critical" },
+      ],
+
+      taskCategoryOptions: [
+        { label: "Maintenance", value: "maintenance" },
+        { label: "Repair", value: "repair" },
+        { label: "Inspection", value: "inspection" },
+        { label: "Cleaning", value: "cleaning" },
+        { label: "Landscaping", value: "landscaping" },
+        { label: "Security", value: "security" },
+        { label: "Other", value: "other" },
+      ],
+
       transactionTypeOptions: [
         { label: "Income", value: "income" },
         { label: "Expense", value: "expense" },
+      ],
+
+      transactionCategoryOptions: [
+        { label: "Rent", value: "rent" },
+        { label: "Utilities", value: "utilities" },
+        { label: "Maintenance", value: "maintenance" },
+        { label: "Insurance", value: "insurance" },
+        { label: "Taxes", value: "taxes" },
+        { label: "Management Fee", value: "management_fee" },
+        { label: "Other", value: "other" },
+      ],
+
+      paymentMethodOptions: [
+        { label: "Cash", value: "cash" },
+        { label: "Check", value: "check" },
+        { label: "Bank Transfer", value: "bank_transfer" },
+        { label: "Credit Card", value: "credit_card" },
+        { label: "PayPal", value: "paypal" },
+        { label: "Other", value: "other" },
+      ],
+
+      paymentFrequencyOptions: [
+        { label: "Monthly", value: "monthly" },
+        { label: "Quarterly", value: "quarterly" },
+        { label: "Annually", value: "annually" },
+        { label: "Weekly", value: "weekly" },
       ],
     };
   },
@@ -699,22 +985,18 @@ export default defineComponent({
     // Quick action methods
     openCreatePropertyModal() {
       this.createPropertyDialog = true;
-      this.showQuickActions = false;
     },
 
     openCreateTaskModal() {
       this.createTaskDialog = true;
-      this.showQuickActions = false;
     },
 
     openCreateTransactionModal() {
       this.createTransactionDialog = true;
-      this.showQuickActions = false;
     },
 
     openCreateLeaseModal() {
       this.createLeaseDialog = true;
-      this.showQuickActions = false;
     },
 
     // Save methods
@@ -734,6 +1016,10 @@ export default defineComponent({
         square_feet: null,
         bedrooms: null,
         bathrooms: null,
+        parking_spaces: null,
+        purchase_price: null,
+        purchase_date: "",
+        description: "",
       };
 
       this.createPropertyDialog = false;
@@ -758,6 +1044,11 @@ export default defineComponent({
         report_by: "",
         report_date: "",
         status: "Open",
+        priority: "Medium",
+        assigned_to: "",
+        due_date: "",
+        estimated_cost: null,
+        category: "",
       };
 
       this.createTaskDialog = false;
@@ -784,6 +1075,10 @@ export default defineComponent({
         type: "income",
         date: "",
         currency: "USD",
+        category: "",
+        reference: "",
+        payment_method: "",
+        description: "",
       };
 
       this.createTransactionDialog = false;
@@ -820,6 +1115,12 @@ export default defineComponent({
         contract_start_date: "",
         contract_end_date: "",
         monthly_price: null,
+        security_deposit: null,
+        tenant_phone: "",
+        tenant_email: "",
+        lease_number: "",
+        payment_frequency: "monthly",
+        notes: "",
       };
 
       this.createLeaseDialog = false;

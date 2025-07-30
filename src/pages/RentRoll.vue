@@ -2,26 +2,26 @@
   <q-page class="flex flex-center">
     <div style="width: 100%; max-width: 1400px">
       <div class="page-header">
-        <h4 class="page-title">财务交易管理系统</h4>
+        <h4 class="page-title">Financial Transaction Management System</h4>
         <div class="header-actions">
           <q-btn
             color="primary"
             icon="add"
-            label="添加交易"
+            label="Add Transaction"
             @click="openAddTransactionModal"
             class="add-transaction-btn"
           />
           <q-btn
             color="secondary"
             icon="download"
-            label="导出CSV"
+            label="Export CSV"
             @click="exportToCSV"
             class="export-btn"
           />
           <q-btn
             color="secondary"
             icon="picture_as_pdf"
-            label="导出PDF"
+            label="Export PDF"
             @click="exportToPDF"
             class="export-btn"
           />
@@ -35,9 +35,9 @@
             <q-icon name="trending_up" size="2rem" color="green" />
           </div>
           <div class="summary-content">
-            <h3>总收入</h3>
+            <h3>Total Income</h3>
             <p class="summary-amount">¥{{ formatCurrency(totalIncome) }}</p>
-            <p class="summary-period">本月</p>
+            <p class="summary-period">This Month</p>
           </div>
         </div>
 
@@ -46,9 +46,9 @@
             <q-icon name="trending_down" size="2rem" color="red" />
           </div>
           <div class="summary-content">
-            <h3>总支出</h3>
+            <h3>Total Expenses</h3>
             <p class="summary-amount">¥{{ formatCurrency(totalExpense) }}</p>
-            <p class="summary-period">本月</p>
+            <p class="summary-period">This Month</p>
           </div>
         </div>
 
@@ -57,11 +57,11 @@
             <q-icon name="account_balance" size="2rem" color="blue" />
           </div>
           <div class="summary-content">
-            <h3>净利润</h3>
-            <p class="summary-amount" :class="{ negative: netProfit < 0 }">
-              ¥{{ formatCurrency(netProfit) }}
-            </p>
-            <p class="summary-period">本月</p>
+            <h3>Net Profit</h3>
+                          <p class="summary-amount" :class="{ negative: netProfit < 0 }">
+                ¥{{ formatCurrency(netProfit) }}
+              </p>
+              <p class="summary-period">This Month</p>
           </div>
         </div>
 
@@ -70,9 +70,9 @@
             <q-icon name="receipt" size="2rem" color="orange" />
           </div>
           <div class="summary-content">
-            <h3>交易总数</h3>
+            <h3>Total Transactions</h3>
             <p class="summary-amount">{{ transactions.length }}</p>
-            <p class="summary-period">本月</p>
+            <p class="summary-period">This Month</p>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
         <div class="search-box">
           <q-input
             v-model="searchTerm"
-            placeholder="搜索交易..."
+            placeholder="Search transactions..."
             dense
             outlined
             clearable
@@ -97,7 +97,7 @@
           <q-select
             v-model="categoryFilter"
             :options="categoryOptions"
-            label="类别筛选"
+            label="Category Filter"
             dense
             outlined
             clearable
@@ -106,7 +106,7 @@
           <q-select
             v-model="propertyFilter"
             :options="propertyOptions"
-            label="物业筛选"
+            label="Property Filter"
             dense
             outlined
             clearable
@@ -115,7 +115,7 @@
           <q-select
             v-model="typeFilter"
             :options="typeOptions"
-            label="类型筛选"
+            label="Type Filter"
             dense
             outlined
             clearable
@@ -123,7 +123,7 @@
           />
           <q-input
             v-model="dateRange"
-            label="日期范围"
+            label="Date Range"
             dense
             outlined
             readonly
@@ -185,7 +185,7 @@
                 icon="edit"
                 color="primary"
                 @click="openEditTransactionModal(props.row, props.rowIndex)"
-                title="编辑交易"
+                title="Edit Transaction"
               />
               <q-btn
                 flat
@@ -194,7 +194,7 @@
                 icon="delete"
                 color="negative"
                 @click="deleteTransaction(props.rowIndex)"
-                title="删除交易"
+                                  title="Delete Transaction"
               />
             </q-td>
           </template>
@@ -206,7 +206,7 @@
         <q-card style="min-width: 600px; max-width: 90vw">
           <q-card-section class="row items-center q-pb-none">
             <div class="text-h6">
-              {{ transactionDialog.isEditing ? "编辑交易" : "添加交易" }}
+              {{ transactionDialog.isEditing ? "Edit Transaction" : "Add Transaction" }}
             </div>
             <q-space />
             <q-btn icon="close" flat round dense v-close-popup />
@@ -217,7 +217,7 @@
               <div class="form-grid">
                 <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label">交易类型 *</label>
+                    <label class="form-label">Transaction Type *</label>
                     <q-select
                       v-model="transactionDialog.form.type"
                       :options="typeOptions"
@@ -229,7 +229,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="form-label">类别 *</label>
+                                          <label class="form-label">Category *</label>
                     <q-select
                       v-model="transactionDialog.form.category"
                       :options="getCategoryOptions()"
@@ -242,23 +242,23 @@
 
                 <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label">从 *</label>
+                                          <label class="form-label">From *</label>
                     <q-input
                       v-model="transactionDialog.form.from"
                       outlined
                       dense
-                      placeholder="例如: 租户姓名或公司名称"
+                                              placeholder="e.g., Tenant name or company"
                       required
                     />
                   </div>
 
                   <div class="form-group">
-                    <label class="form-label">到 *</label>
+                                          <label class="form-label">To *</label>
                     <q-input
                       v-model="transactionDialog.form.to"
                       outlined
                       dense
-                      placeholder="例如: 物业公司或收款方"
+                                              placeholder="e.g., Property company or recipient"
                       required
                     />
                   </div>
@@ -266,7 +266,7 @@
 
                 <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label">金额 *</label>
+                                          <label class="form-label">Amount *</label>
                     <q-input
                       v-model.number="transactionDialog.form.amount"
                       type="number"
@@ -280,7 +280,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="form-label">货币 *</label>
+                                          <label class="form-label">Currency *</label>
                     <q-select
                       v-model="transactionDialog.form.currency"
                       :options="currencyOptions"
@@ -293,7 +293,7 @@
 
                 <div class="form-row">
                   <div class="form-group">
-                    <label class="form-label">交易日期 *</label>
+                                          <label class="form-label">Transaction Date *</label>
                     <q-input
                       v-model="transactionDialog.form.date"
                       type="date"
@@ -304,7 +304,7 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="form-label">所属物业 *</label>
+                                          <label class="form-label">Property *</label>
                     <q-select
                       v-model="transactionDialog.form.property_id"
                       :options="propertyOptions"
@@ -316,13 +316,13 @@
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label">备注</label>
+                                        <label class="form-label">Notes</label>
                   <q-input
                     v-model="transactionDialog.form.notes"
                     type="textarea"
                     outlined
                     dense
-                    placeholder="交易备注..."
+                                          placeholder="Transaction notes..."
                     rows="3"
                   />
                 </div>
@@ -330,13 +330,13 @@
 
               <div class="form-actions">
                 <q-btn
-                  label="取消"
+                  label="Cancel"
                   flat
                   color="primary"
                   @click="closeTransactionModal"
                 />
                 <q-btn
-                  :label="transactionDialog.isEditing ? '更新' : '添加'"
+                                      :label="transactionDialog.isEditing ? 'Update' : 'Add'"
                   type="submit"
                   color="primary"
                 />
@@ -363,37 +363,37 @@ export default defineComponent({
       typeFilter: null,
       dateRange: "",
 
-      // 交易数据
+      // Transaction data
       transactions: [
         {
           id: 1,
           type: "income",
-          category: "租金收入",
-          from: "张三",
+                      category: "Rent Income",
+            from: "John Smith",
           to: "Sunset Villa",
           amount: 5000.0,
           currency: "CNY",
           date: "2024-01-15",
           property_id: 1,
-          notes: "1月份租金",
+          notes: "January rent payment",
         },
         {
           id: 2,
           type: "expense",
-          category: "维修费用",
-          from: "Sunset Villa",
-          to: "维修公司",
+                      category: "Maintenance",
+            from: "Sunset Villa",
+            to: "Maintenance Company",
           amount: 800.0,
           currency: "CNY",
           date: "2024-01-20",
           property_id: 1,
-          notes: "空调维修",
+                      notes: "AC repair",
         },
         {
           id: 3,
           type: "income",
-          category: "租金收入",
-          from: "李四",
+                      category: "Rent Income",
+            from: "Jane Doe",
           to: "Downtown Loft",
           amount: 3500.0,
           currency: "CNY",
@@ -404,85 +404,85 @@ export default defineComponent({
         {
           id: 4,
           type: "expense",
-          category: "物业管理费",
+          category: "Property Management",
           from: "Downtown Loft",
-          to: "物业公司",
+          to: "Property Management Company",
           amount: 500.0,
           currency: "CNY",
           date: "2024-01-05",
           property_id: 2,
-          notes: "1月份物业费",
+          notes: "January property management fee",
         },
         {
           id: 5,
           type: "expense",
-          category: "水电费",
+          category: "Utilities",
           from: "Lakeside Retreat",
-          to: "水电公司",
+          to: "Utility Company",
           amount: 300.0,
           currency: "CNY",
           date: "2024-01-25",
           property_id: 3,
-          notes: "1月份水电费",
+          notes: "January utilities",
         },
         {
           id: 6,
           type: "income",
-          category: "租金收入",
-          from: "王五",
+          category: "Rent Income",
+          from: "Mike Johnson",
           to: "Lakeside Retreat",
           amount: 4200.0,
           currency: "CNY",
           date: "2024-01-12",
           property_id: 3,
-          notes: "1月份租金",
+          notes: "January rent payment",
         },
         {
           id: 7,
           type: "expense",
-          category: "保险费用",
+          category: "Insurance",
           from: "Sunset Villa",
-          to: "保险公司",
+          to: "Insurance Company",
           amount: 1200.0,
           currency: "CNY",
           date: "2024-01-08",
           property_id: 1,
-          notes: "年度保险",
+          notes: "Annual insurance",
         },
         {
           id: 8,
           type: "expense",
-          category: "清洁费用",
+          category: "Cleaning",
           from: "Downtown Loft",
-          to: "清洁公司",
+          to: "Cleaning Company",
           amount: 200.0,
           currency: "CNY",
           date: "2024-01-18",
           property_id: 2,
-          notes: "公共区域清洁",
+          notes: "Common area cleaning",
         },
       ],
 
-      // 物业数据
+      // Property data
       properties: [
         { id: 1, nickname: "Sunset Villa" },
         { id: 2, nickname: "Downtown Loft" },
         { id: 3, nickname: "Lakeside Retreat" },
       ],
 
-      // 选项数据
+      // Options data
       typeOptions: [
-        { label: "收入", value: "income" },
-        { label: "支出", value: "expense" },
+        { label: "Income", value: "income" },
+        { label: "Expense", value: "expense" },
       ],
 
       currencyOptions: [
-        { label: "人民币 (CNY)", value: "CNY" },
-        { label: "美元 (USD)", value: "USD" },
-        { label: "欧元 (EUR)", value: "EUR" },
+        { label: "Chinese Yuan (CNY)", value: "CNY" },
+        { label: "US Dollar (USD)", value: "USD" },
+        { label: "Euro (EUR)", value: "EUR" },
       ],
 
-      // 对话框状态
+      // Dialog state
       transactionDialog: {
         open: false,
         isEditing: false,
@@ -499,73 +499,73 @@ export default defineComponent({
         },
       },
 
-      // 表格列定义
+      // Table column definitions
       columns: [
         {
           name: "date",
-          label: "日期",
+          label: "Date",
           field: "date",
           align: "left",
           sortable: true,
         },
         {
           name: "type",
-          label: "类型",
+          label: "Type",
           field: "type",
           align: "center",
           sortable: true,
         },
         {
           name: "category",
-          label: "类别",
+          label: "Category",
           field: "category",
           align: "center",
           sortable: true,
         },
         {
           name: "from",
-          label: "从",
+          label: "From",
           field: "from",
           align: "left",
           sortable: true,
         },
         {
           name: "to",
-          label: "到",
+          label: "To",
           field: "to",
           align: "left",
           sortable: true,
         },
         {
           name: "amount",
-          label: "金额",
+          label: "Amount",
           field: "amount",
           align: "right",
           sortable: true,
         },
         {
           name: "currency",
-          label: "货币",
+          label: "Currency",
           field: "currency",
           align: "center",
           sortable: true,
         },
         {
           name: "property",
-          label: "物业",
+          label: "Property",
           field: (row) => this.getPropertyName(row.property_id),
           align: "left",
           sortable: true,
         },
         {
           name: "notes",
-          label: "备注",
+          label: "Notes",
           field: "notes",
           align: "left",
         },
         {
           name: "actions",
-          label: "操作",
+          label: "Actions",
           field: "actions",
           align: "center",
         },
@@ -574,7 +574,7 @@ export default defineComponent({
   },
 
   computed: {
-    // 物业选项
+    // Property options
     propertyOptions() {
       return this.properties.map((prop) => ({
         label: prop.nickname,
@@ -582,17 +582,17 @@ export default defineComponent({
       }));
     },
 
-    // 类别选项
+    // Category options
     categoryOptions() {
       const categories = [...new Set(this.transactions.map((t) => t.category))];
       return categories.map((cat) => ({ label: cat, value: cat }));
     },
 
-    // 筛选后的交易
+    // Filtered transactions
     filteredTransactions() {
       let filtered = this.transactions;
 
-      // 搜索筛选
+      // Search filter
       if (this.searchTerm) {
         const term = this.searchTerm.toLowerCase();
         filtered = filtered.filter(

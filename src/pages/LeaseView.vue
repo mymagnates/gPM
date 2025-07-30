@@ -162,6 +162,16 @@
                   @click="openLeaseMenu(props.row, $event)"
                   title="More Actions"
                 />
+                <q-btn
+                  v-if="props.row.status === 'Active'"
+                  flat
+                  round
+                  dense
+                  icon="block"
+                  color="negative"
+                  @click="deactivateLease(props.row)"
+                  title="Deactivate Lease"
+                />
               </div>
             </q-td>
           </template>
@@ -1019,6 +1029,36 @@ export default defineComponent({
         type: "info",
         message: "Terminate lease functionality to be implemented",
         position: "top",
+      });
+    },
+
+    deactivateLease(lease) {
+      // Show confirmation dialog
+      this.$q.dialog({
+        title: 'Deactivate Lease',
+        message: `Are you sure you want to deactivate the lease for ${lease.tenant_name} at ${this.getPropertyName(lease.property_id)}?`,
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        // Find and update the lease status
+        const leaseIndex = this.leases.findIndex(l => l.id === lease.id);
+        if (leaseIndex !== -1) {
+          this.leases[leaseIndex].status = 'Terminated';
+          
+          // Add a new version record
+          this.leases[leaseIndex].versions.push({
+            id: Math.max(...this.leases.flatMap(l => l.versions).map(v => v.id)) + 1,
+            created_at: new Date().toISOString().split('T')[0],
+            type: 'Deactivated',
+            notes: 'Lease deactivated by user'
+          });
+
+          this.$q.notify({
+            type: 'positive',
+            message: 'Lease deactivated successfully',
+            position: 'top'
+          });
+        }
       });
     },
 

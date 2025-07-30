@@ -43,7 +43,7 @@
         <q-form @submit="signUpWithEmail" class="signup-form">
           <div class="form-section">
             <h3 class="section-title">Sign up with Email</h3>
-            
+
             <!-- Basic Information -->
             <div class="form-row">
               <q-input
@@ -51,7 +51,7 @@
                 label="First Name *"
                 outlined
                 required
-                :rules="[val => !!val || 'First name is required']"
+                :rules="[(val) => !!val || 'First name is required']"
                 class="form-field"
               />
               <q-input
@@ -59,7 +59,7 @@
                 label="Last Name *"
                 outlined
                 required
-                :rules="[val => !!val || 'Last name is required']"
+                :rules="[(val) => !!val || 'Last name is required']"
                 class="form-field"
               />
             </div>
@@ -71,8 +71,10 @@
               outlined
               required
               :rules="[
-                val => !!val || 'Email is required',
-                val => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) || 'Please enter a valid email'
+                (val) => !!val || 'Email is required',
+                (val) =>
+                  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val) ||
+                  'Please enter a valid email',
               ]"
               class="form-field"
             />
@@ -84,9 +86,12 @@
               outlined
               required
               :rules="[
-                val => !!val || 'Password is required',
-                val => val.length >= 8 || 'Password must be at least 8 characters',
-                val => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(val) || 'Password must contain uppercase, lowercase, and number'
+                (val) => !!val || 'Password is required',
+                (val) =>
+                  val.length >= 8 || 'Password must be at least 8 characters',
+                (val) =>
+                  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(val) ||
+                  'Password must contain uppercase, lowercase, and number',
               ]"
               class="form-field"
             />
@@ -98,8 +103,8 @@
               outlined
               required
               :rules="[
-                val => !!val || 'Please confirm your password',
-                val => val === form.password || 'Passwords do not match'
+                (val) => !!val || 'Please confirm your password',
+                (val) => val === form.password || 'Passwords do not match',
               ]"
               class="form-field"
             />
@@ -119,7 +124,7 @@
                 label="I am a *"
                 outlined
                 required
-                :rules="[val => !!val || 'Please select your user type']"
+                :rules="[(val) => !!val || 'Please select your user type']"
                 class="form-field"
               />
             </div>
@@ -137,7 +142,7 @@
                 v-model="form.acceptTerms"
                 label="I agree to the Terms of Service and Privacy Policy"
                 required
-                :rules="[val => val || 'You must accept the terms']"
+                :rules="[(val) => val || 'You must accept the terms']"
               />
               <q-checkbox
                 v-model="form.marketingEmails"
@@ -175,7 +180,8 @@
           <q-icon name="check_circle" color="positive" size="4rem" />
           <h3 class="success-title">Account Created Successfully!</h3>
           <p class="success-message">
-            Welcome to magnatesPM! Your account has been created and you're now signed in.
+            Welcome to magnatesPM! Your account has been created and you're now
+            signed in.
           </p>
         </q-card-section>
         <q-card-actions align="center">
@@ -243,7 +249,7 @@ export default defineComponent({
           firebase.auth,
           firebase.googleProvider
         );
-        
+
         if (result.user) {
           await this.createUserProfile(result.user, "google");
           this.showSuccessMessage();
@@ -267,7 +273,7 @@ export default defineComponent({
           firebase.auth,
           firebase.facebookProvider
         );
-        
+
         if (result.user) {
           await this.createUserProfile(result.user, "facebook");
           this.showSuccessMessage();
@@ -292,13 +298,13 @@ export default defineComponent({
           this.form.email,
           this.form.password
         );
-        
+
         if (result.user) {
           // Update user profile with additional information
           await result.user.updateProfile({
             displayName: `${this.form.firstName} ${this.form.lastName}`,
           });
-          
+
           await this.createUserProfile(result.user, "email");
           this.showSuccessMessage();
         }
@@ -320,8 +326,12 @@ export default defineComponent({
         const userProfile = {
           uid: user.uid,
           email: user.email,
-          firstName: this.form.firstName || user.displayName?.split(" ")[0] || "",
-          lastName: this.form.lastName || user.displayName?.split(" ").slice(1).join(" ") || "",
+          firstName:
+            this.form.firstName || user.displayName?.split(" ")[0] || "",
+          lastName:
+            this.form.lastName ||
+            user.displayName?.split(" ").slice(1).join(" ") ||
+            "",
           phone: this.form.phone || "",
           userType: this.form.userType || "other",
           company: this.form.company || "",
@@ -584,4 +594,4 @@ export default defineComponent({
     grid-template-columns: 1fr;
   }
 }
-</style> 
+</style>
