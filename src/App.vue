@@ -3,9 +3,18 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from "vue";
+import { useAuthStore } from "./stores/auth-store";
 
 export default defineComponent({
-  name: 'App'
-})
+  name: "App",
+  setup() {
+    const authStore = useAuthStore();
+
+    onMounted(() => {
+      // Initialize authentication listener
+      authStore.initAuthListener();
+    });
+  },
+});
 </script>
